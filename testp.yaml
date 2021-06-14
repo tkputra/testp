@@ -1,0 +1,22 @@
+version: "3.1"
+services:
+  testproject-agent:
+    image: testproject/agent:latest
+    container_name: testproject-agent
+    depends_on:
+      - chrome
+      - firefox
+    volumes:
+      - /path/to/host/folder:/var/testproject/agent
+    environment:
+      TP_API_KEY: "VVGu3Pu3blCLb1mdgKO2vzYDiwMIna_A3AnKWJClCiQ1"
+      TP_JOB_ID: "REPLACE_WITH_YOUR_JOB_ID"
+      TP_JOB_PARAMS: '"jobParameters" : { "browsers" : ["Chrome","FireFox"], "testParameters": [{ "data": [{ "ApplicationURL": "https://example.testproject.io/web", "FirstName": "John", "LastName": "Travolta"}]}]}'
+      CHROME: "chrome:4444"
+      FIREFOX: "firefox:4444"
+  chrome:
+    image: selenium/standalone-chrome
+    shm_size: '1gb'
+  firefox:
+    image: selenium/standalone-firefox
+    shm_size: '1gb'
